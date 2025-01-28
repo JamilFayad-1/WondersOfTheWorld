@@ -415,6 +415,7 @@ header {
     overflow-y: scroll;
     pointer-events: none;
     transition: all 0.2s ease;
+    scrollbar-width: none;
 }
 
 .vertical-menu-list::-webkit-scrollbar-track {
