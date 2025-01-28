@@ -415,9 +415,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
             opacity: 1,
             duration: 1,
             ease: "power3.out",
-            pointerEvents: 'all',
             onComplete: () => {
                 openPopup.style.transition = 'opacity 0.6s ease-in-out';
+                openPopup.style.pointerEvents = "all";
             }
         })
     })
