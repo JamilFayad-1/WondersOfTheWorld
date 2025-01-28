@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+<!-- Main header of the website -->
+<header id="header">
+    <h2 class="menu-element">DISCOVER</h2>
+    <h2 class="logo-name">Wonders <br /> <span class="span-logo">of the world</span></h2>
+    <h2 class="account-element">HOME</h2>
+</header>
+
+<!-- Background of the website (The animated ocean) -->
+<div class="animated-background">
+    <video autoplay muted loop class="background-video" id="BackAnim">
+        <source th:src="@{/assets/animatedOceanEdited2.mp4}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+
+<!-- Trademark -->
+<img class="brandLogoTrademark" th:src="@{/assets/Logo.png}">
+
+<!-- Landing page (The page when we first open the website) -->
+<div class="landing-page">
+    <h1 id="OpenButton">OPEN</h1>
+    <div class="options">
+        <div class="account-options">
+            <div class="option-1-open">
+                <div class="option-1-header">
+                    <h2 id="formActive">Create Account</h2>
+                </div>
+                <form id="createAccountForm" class="create-account-form">
+
+                    <div class="input-container" id="input-container-first-name">
+                        <input class="createAccountInput" type="text" id="firstName" name="firstName" placeholder="First name">
+                    </div>
+
+                    <div class="input-container" id="input-container-last-name">
+                        <input class="createAccountInput" type="text" id="lastName" name="lastName" placeholder="Last name">
+                    </div>
+
+                    <div class="input-container" id="input-container-username">
+                        <input class="createAccountInput" type="text" id="username" name="username" placeholder="Username">
+                    </div>
+
+                    <div class="input-container" id="input-container-email">
+                        <input class="createAccountInput" type="email" id="email" name="email" placeholder="Email">
+                    </div>
+
+                    <div class="input-container" id="input-container-password">
+                        <input class="createAccountInput" type="password" id="password" name="password" placeholder="Password">
+                    </div>
+
+                    <button type="button" id="submitBtn">Create Account</button>
+
+                </form>
+                <form id="loginAccountForm" class="login-account-form">
+
+                    <div class="input-container" id="input-login-container-email">
+                        <input class="createAccountInput" type="email" id="email-login" name="email" placeholder="Email">
+                    </div>
+
+                    <div class="input-container" id="input-login-container-password">
+                        <input class="createAccountInput" type="password" id="password-login" name="password" placeholder="Password">
+                    </div>
+
+                    <button type="button" id="loginSubmitBtn">Login</button>
+
+                </form>
+            </div>
+            <div class="option-2-open" id="formSwitch">
+                <p id="formSwitchTitle">LOGIN</p>
+            </div>
+        </div>
+        <div class="option-3-open" id="guestLogin">
+            <p>CONTINUE AS A GUEST</p>
+        </div>
+    </div>
+</div>
+
+<!-- Account page -->
+<div class="account-page">
+    <nav class="account-page-header">
+        <img class="close-button" width="26px" height="26px" th:src="@{/assets/icons8-close-64.png}" alt="close icon"
+             id="close-account-button">
+    </nav>
+</div>
+
+<!-- Images when we hover over a location -->
+<div class="cursor"></div>
+
+<!-- List of locations -->
+<div class="left-menu-container">
+    <div class="vertical-menu-list" id="locationsList">
+    </div>
+</div>
+
+<div class="featured-of-the-month">
+    <div class="featured-header">
+        <h1 class="featured-title">Featured of the month</h1>
+        <p class="month-display" id="monthDisplayed">SEPTEMBER 2024</p>
+    </div>
+    <div class="featured-container">
+        <div class="featured-location">
+            <img th:src="@{/assets/image1.jpg}" alt="location featured">
+        </div>
+        <div class="featured-location">
+            <img th:src="@{/assets/image2.jpg}" alt="location featured">
+        </div>
+        <div class="featured-location">
+            <img th:src="@{/assets/image3.jpg}" alt="location featured">
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script th:src="@{/javascript/script.js}"></script>
+</body>
+</html>

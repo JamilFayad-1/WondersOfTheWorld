@@ -1,0 +1,633 @@
+@font-face {
+    font-family: 'CustomFont';
+    src: url('/fonts/Meditative.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'CustomFont2';
+    src: url('/fonts/TangoSans.ttf') format('truetype');
+}
+
+:root {
+    --lighter: #fefefb;
+    --medium: #fcf3ea;
+    --darker: #FFD8BE;
+    --dark-text: #012622;
+    --medium-text: #505050;
+    --lighter-text: #eaeaea;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+    background-color: var(--lighter);
+    overflow: hidden;
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+    display: none;
+}
+
+input:-internal-autofill-selected {
+    background-color: transparent !important;
+    color: whitesmoke !important;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 10vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 5;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    border-bottom-right-radius: 35px;
+    border-bottom-left-radius: 35px;
+}
+
+.menu-element {
+    font-family: 'CustomFont', serif;
+    font-size: clamp(1rem, 1vw + 1rem, 3rem);
+    color: var(--lighter-text);
+    font-weight: 400;
+    transition: all 0.6s ease;
+    opacity: 0;
+    pointer-events: none;
+    width: 20%;
+    text-align: center;
+}
+
+.menu-element:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    color: #bebebe;
+}
+
+.logo-name {
+    font-family: 'CustomFont', serif;
+    font-size: clamp(2rem, 1.5vw + 1rem, 3.5rem);
+    color: var(--lighter-text);
+    font-weight: 400;
+    transition: all 0.6s ease;
+    opacity: 0;
+    pointer-events: none;
+    text-align: center;
+    line-height: 20px;
+}
+
+.span-logo {
+    font-size: clamp(1rem, 0.5vw + 1rem, 2rem);
+}
+
+.imageHovered {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 320px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.account-element {
+    font-family: 'CustomFont', serif;
+    font-size: clamp(1rem, 1vw + 1rem, 3rem);
+    color: var(--lighter-text);
+    font-weight: 400;
+    transition: all 0.6s ease;
+    opacity: 0;
+    pointer-events: none;
+    width: 20%;
+    text-align: center;
+}
+
+.account-element:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    color: #bebebe;
+}
+
+.animated-background {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    transform: translate(-50%, -50%) scale(3.5);
+    object-fit: cover;
+    filter: blur(15px) grayscale(1);
+}
+
+.landing-page {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+}
+
+.landing-page h1 {
+    font-family: 'CustomFont', serif;
+    font-size: clamp(1rem, 5vw + 1rem, 4rem);
+    color: var(--lighter-text);
+    font-weight: 400;
+    transition: all 0.4s ease;
+}
+
+.landing-page h1:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.options {
+    position: absolute;
+    width: 750px;
+    height: 700px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: solid 3px whitesmoke;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.account-options {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 90%;
+}
+
+.option-1-open {
+    position: relative;
+    width: 70%;
+    height: 100%;
+    top: 0;
+    border-right: 1px solid whitesmoke;
+    padding: 25px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-top-left-radius: 15px;
+}
+
+.option-1-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10%;
+}
+
+.brandLogoTrademark {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 65px;
+    height: 65px;
+    border-radius: 10px;
+    margin-right: 25px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(245, 245, 245, 0.6);
+}
+
+.option-1-open h2 {
+    font-family: 'CustomFont', serif;
+    font-size: clamp(1.2rem, 1.5vw + 1.2rem, 2.5rem);
+    color: whitesmoke;
+    margin-left: 10px;
+}
+
+.create-account-form,
+.login-account-form{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    margin-left: -25px;
+}
+
+.login-account-form {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.input-container {
+    position: relative;
+    width: 70%;
+    height: 12%;
+    margin-bottom: 1%;
+}
+
+.input-container p{
+    position: relative;
+    font-family: 'CustomFont2', serif;
+    font-size: clamp(0.5rem, 0.8vh + 0.5rem, 0.8rem);
+    color: #d1d1d1;
+    padding: 2% 0 0 4%;
+}
+
+.create-account-form input,
+.login-account-form input{
+    position: relative;
+    width: 100%;
+    height: 70%;
+    font-family: 'CustomFont', serif;
+    font-size: clamp(0.8rem, 1.5vh + 0.8rem, 1.4rem);
+    color: whitesmoke;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    outline: 1px solid whitesmoke;
+    border: none;
+    padding-left: 10px;
+}
+
+.create-account-form input:focus,
+.login-account-form input:focus{
+    outline: 2px solid rgba(96, 127, 158, 0.6);
+}
+
+.create-account-form button,
+.login-account-form button{
+    width: 70%;
+    height: 10%;
+    font-family: 'CustomFont', serif;
+    font-size: clamp(0.8rem, 1.5vh + 0.8rem, 1.4rem);
+    color: whitesmoke;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid whitesmoke;
+    padding: 10px;
+    transition: all 0.2s ease;
+}
+
+.create-account-form button:hover,
+.login-account-form button:hover{
+    cursor: pointer;
+    background-color: rgba(96, 127, 158, 0.5);
+}
+
+.option-2-open {
+    position: relative;
+    flex-grow: 1;
+    height: 100%;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-top-right-radius: 15px;
+    transition: all 0.2s ease;
+}
+
+.option-2-open:hover {
+    background-color: rgba(65, 65, 65, 0.5);
+    cursor: pointer;
+}
+
+.option-2-open p {
+    font-family: 'CustomFont', serif;
+    font-size: clamp(1.4rem, 2.5vw + 1.4rem, 2rem);
+    color: whitesmoke;
+    transition: all 0.2s ease;
+}
+
+.option-2-open:hover p {
+    color: rgba(96, 127, 158, 0.7);
+}
+
+.option-3-open {
+    position: relative;
+    width: 100%;
+    height: 10%;
+    border-top: 1px solid whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'CustomFont', serif;
+    font-size: clamp(1rem, 2vw + 1rem, 1.6rem);
+    color: whitesmoke;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    transition: all 0.2s ease;
+}
+
+.option-3-open:hover {
+    background-color: rgba(65, 65, 65, 0.5);
+    color: rgba(96, 127, 158, 0.7);
+    cursor: pointer;
+}
+
+
+.account-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    z-index: 20;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s ease;
+}
+
+.account-page-header {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 40px;
+}
+
+.close-button {
+    position: relative;
+    transform-origin: center;
+    transition: all 0.4s ease-out;
+}
+
+.close-button:hover {
+    cursor: pointer;
+    transform: rotate(90deg);
+}
+
+.left-menu-container {
+    position: relative;
+    overflow: visible;
+    width: 100vw;
+    height: 90vh;
+    top: 10vh;
+    padding: 5% 5% 0 0;
+    display: flex;
+    align-items: flex-start;
+    z-index: 1;
+}
+
+.vertical-menu-list{
+    position: relative;
+    width: 100%;
+    height: 80%;
+    display: block;
+    padding: 0 5%;
+    overflow-x: visible;
+    overflow-y: scroll;
+    pointer-events: none;
+    transition: all 0.2s ease;
+}
+
+.vertical-menu-list::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.vertical-menu-list::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+}
+
+.location-div {
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    opacity: 0;
+    transition: all 0.6s ease;
+}
+
+.location-div:hover {
+    cursor: pointer;
+    transform: scale(1.1) !important;
+}
+
+.location-div-extra {
+    position: relative;
+    width: fit-content;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 25px;
+    background-color: rgba(0, 0, 0, 0.71);
+    backdrop-filter: blur(10px);
+    margin-left: 10px;
+    padding: 5px 15px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.location-div-extra p {
+    color: var(--lighter-text);
+    font-family: 'CustomFont', serif;
+    font-size: clamp(0.7rem, 1.6vw + 0.8rem, 1.4rem);
+    font-weight: 300;
+}
+
+.location-div-extra i{
+    color: var(--lighter-text);
+    margin-right: 5px;
+}
+
+.menu-item {
+    width: fit-content;
+    width: -moz-fit-content;
+    font-family: 'CustomFont', serif;
+    font-size: clamp(1rem, 3vw + 1rem, 5rem);
+    color: var(--lighter-text);
+    font-weight: 400;
+    overflow-x: visible;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    transition: color 0.4s ease;
+}
+
+.menu-item:hover {
+    color: rgb(182, 182, 182);
+}
+
+.featured-of-the-month {
+    position: absolute;
+    width: 80vw;
+    height: 70vh;
+    bottom: 0;
+    left: 50vw;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    backdrop-filter: blur(20px);
+    visibility: hidden;
+}
+
+.featured-header {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    padding: 0 5%;
+    width: 100%;
+    height: 15%;
+}
+
+.featured-title {
+    font-family: 'CustomFont', serif;
+    font-size: clamp(1rem, 3vw + 1rem, 4rem);
+    color: var(--lighter-text);
+    font-style: italic;
+    padding-right: 10px;
+}
+
+.month-display {
+    font-family: 'CustomFont', serif;
+    font-size: clamp(0.8rem, 1vw + 0.8rem, 1.4rem);
+    color: var(--lighter-text);
+    font-style: italic;
+    padding-bottom: 10px;
+}
+
+.featured-container {
+    position: relative;
+    width: 100%;
+    height: 85%;
+    padding: 2% 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.featured-location {
+    width: 360px;
+    height: 360px;
+    background-color: white;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    outline: 2px solid whitesmoke;
+}
+
+.featured-location img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: all 0.6s ease-in;
+}
+
+.featured-location:hover {
+    transform: scale(1.2);
+    filter: grayscale(60%);
+    cursor: pointer;
+}
+
+@media (max-width: 1250px) {
+    .menu-element {
+        width: 35%;
+    }
+
+    .menu-item:hover {
+        transform: scale(1.05) !important;
+    }
+
+    .account-element {
+        width: 35%;
+    }
+
+    .left-menu-container {
+        position: absolute;
+        top: 10vh;
+        height: 40vh;
+        align-items: start;
+        justify-content: center;
+        padding: 5% 10%;
+    }
+
+    .vertical-menu-list {
+        display: flex;
+        width: auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        border-radius: 10%;
+    }
+
+    .options {
+        position: absolute;
+        width: 90%;
+        height: 75%;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        border: solid 3px whitesmoke;
+        display: flex;
+        flex-direction: column;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .account-options {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .option-1-open {
+        width: 100%;
+        height: 85%;
+    }
+
+    .option-2-open {
+        width: 100%;
+        height: 15%;
+        border-radius: 0;
+        border-top: 1px solid whitesmoke;
+    }
+
+    .brandLogoTrademark {
+        width: 35px;
+        height: 35px;
+    }
+}
