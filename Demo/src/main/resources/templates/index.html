@@ -105,19 +105,40 @@
 </div>
 
 <div class="featured-of-the-month">
+    <div class="featured-controls">
+        <p id="featuredControlsText">Open featured</p>
+    </div>
     <div class="featured-header">
         <h1 class="featured-title">Featured of the month</h1>
         <p class="month-display" id="monthDisplayed">SEPTEMBER 2024</p>
     </div>
     <div class="featured-container">
         <div class="featured-location">
-            <img th:src="@{/assets/image1.jpg}" alt="location featured">
+            <div class="featured-location-image-container">
+                <img th:src="@{/assets/image1.jpg}" alt="location featured">
+            </div>
+            <div class="featured-location-info">
+                <p>@gwuliano</p>
+                <p>123 likes</p>
+            </div>
         </div>
         <div class="featured-location">
-            <img th:src="@{/assets/image2.jpg}" alt="location featured">
+            <div class="featured-location-image-container">
+                <img th:src="@{/assets/image2.jpg}" alt="location featured">
+            </div>
+            <div class="featured-location-info">
+                <p>@gwuliano</p>
+                <p>167 likes</p>
+            </div>
         </div>
         <div class="featured-location">
-            <img th:src="@{/assets/image3.jpg}" alt="location featured">
+            <div class="featured-location-image-container">
+                <img th:src="@{/assets/image3.jpg}" alt="location featured">
+            </div>
+            <div class="featured-location-info">
+                <p>@gwuliano</p>
+                <p>1348 likes</p>
+            </div>
         </div>
     </div>
 </div>

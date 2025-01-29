@@ -226,6 +226,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 accountButton.style.opacity = '1';
                 accountButton.style.pointerEvents = 'all';
                 landingPage.style.pointerEvents = 'none';
+                featuredOfTheMonth.style.opacity = '1';
+                featuredOfTheMonth.style.pointerEvents = 'all';
             }
         })
 
@@ -294,6 +296,61 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const cursorImage = document.querySelector('.cursor');
     const imageHovered = document.querySelector('.imageHovered');
     const openPopup = document.querySelector('.options');
+    const featuredOfTheMonth = document.querySelector('.featured-of-the-month');
+    const featuredControls = document.querySelector('.featured-controls');
+    const featuredControlsText = document.getElementById('featuredControlsText');
+    const monthDisplayed = document.getElementById('monthDisplayed');
+    const featuredLocations = document.querySelectorAll('.featured-location');
+    const featuredLocationInfos = document.querySelectorAll('.featured-location-info');
+
+    featuredControls.addEventListener('click', function() {
+        if(featuredControlsText.textContent === "Open featured"){
+            gsap.to(featuredOfTheMonth, {
+                duration: 0.8,
+                y: 0,
+                ease: 'power2.inOut'
+            })
+            featuredControlsText.textContent = "Close featured";
+        }else {
+            gsap.to(featuredOfTheMonth, {
+                duration: 0.8,
+                y: '70vh',
+                ease: 'power2.inOut'
+            })
+            featuredControlsText.textContent = "Open featured";
+        }
+    })
+
+    function getMonthAndYear() {
+        const date = new Date();
+        const options = { month: 'long', year: 'numeric' };
+        const formattedDate = date.toLocaleString('en-US', options);
+
+        return formattedDate.toUpperCase();
+    }
+    monthDisplayed.textContent = getMonthAndYear();
+
+    featuredLocations.forEach((location, index) => {
+        const info = featuredLocationInfos[index];
+
+        location.addEventListener('mouseover', function() {
+            gsap.to(info, {
+                duration: 0.2,
+                y: '40px',
+                ease: 'power2.inOut',
+                opacity: 1
+            });
+        });
+
+        location.addEventListener('mouseout', function() {
+            gsap.to(info, {
+                duration: 0.2,
+                y: 0,
+                ease: 'power2.inOut',
+                opacity: 0
+            });
+        });
+    });
 
     function handleMenuItems() {
         const menuItems = document.querySelectorAll('.location-div');
