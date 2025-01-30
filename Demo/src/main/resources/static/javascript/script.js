@@ -435,7 +435,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const imgElement = locationDetailsWrapper.querySelector('.location-detail-image-container img');
             const pElement = locationDetailsWrapper.querySelector('.main-location-info p');
 
-            location.addEventListener('click', function() {
+            location.addEventListener('click', function(event) {
+                event.stopPropagation();
 
                 const locationSpecified = h2.textContent;
 
@@ -444,11 +445,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     if (currentLocationDisplayed !== locationSpecified) {
 
                         gsap.to(locationDetailsWrapper, {
-                            duration: 0.6,
+                            duration: 0.4,
                             x: -100,
                             opacity: 0,
                             ease: 'power2.inOut',
-                            pointerEvents: 'none',
                             onComplete: () => {
                                 imgElement.src = locationImgSrc;
                                 pElement.textContent = h2.textContent;
@@ -457,8 +457,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                     duration: 0.6,
                                     x: 0,
                                     opacity: 1,
-                                    ease: 'power2.inOut',
-                                    pointerEvents: 'all'
+                                    ease: 'power2.inOut'
                                 });
                             }
                         });
@@ -466,6 +465,46 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         currentLocationDisplayed = locationSpecified;
 
                     } else {
+
+                        gsap.to(locationDetailsWrapper, {
+                            duration: 0.6,
+                            x: -100,
+                            opacity: 0,
+                            ease: 'power2.inOut',
+                            onComplete: () => {
+                                imgElement.src = "";
+                                pElement.textContent = "";
+                            }
+                        });
+
+                        locationDetailsWrapper.style.pointerEvents = 'none';
+                        currentLocationDisplayed = null;
+
+                    }
+                } else {
+
+                    imgElement.src = locationImgSrc;
+                    pElement.textContent = h2.textContent;
+
+                    gsap.to(locationDetailsWrapper, {
+                        duration: 0.6,
+                        x: 0,
+                        opacity: 1,
+                        ease: 'power2.inOut'
+                    });
+
+                    locationDetailsWrapper.style.pointerEvents = 'all';
+                    currentLocationDisplayed = locationSpecified;
+
+                }
+
+            });
+
+            document.addEventListener('click', function(event) {
+
+                if (!location.contains(event.target) && !locationDetailsWrapper.contains(event.target)) {
+
+                    if (currentLocationDisplayed !== null) {
 
                         gsap.to(locationDetailsWrapper, {
                             duration: 0.6,
@@ -482,23 +521,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         currentLocationDisplayed = null;
 
                     }
-                } else {
-
-                    imgElement.src = locationImgSrc;
-                    pElement.textContent = h2.textContent;
-
-                    gsap.to(locationDetailsWrapper, {
-                        duration: 0.6,
-                        x: 0,
-                        opacity: 1,
-                        ease: 'power2.inOut',
-                        pointerEvents: 'all'
-                    });
-
-                    currentLocationDisplayed = locationSpecified;
-
                 }
-
             });
 
         });
