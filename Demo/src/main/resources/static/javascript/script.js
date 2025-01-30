@@ -302,6 +302,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const monthDisplayed = document.getElementById('monthDisplayed');
     const featuredLocations = document.querySelectorAll('.featured-location');
     const featuredLocationInfos = document.querySelectorAll('.featured-location-info');
+    const locationDetailsWrapper = document.querySelector('.location-details-wrapper');
+    const mainLocationInfo = document.querySelector('.main-location-info');
+    const locationDetailImageContainer = document.querySelector('.location-detail-image-container');
 
     featuredControls.addEventListener('click', function() {
         if(featuredControlsText.textContent === "Open featured"){
@@ -360,15 +363,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
     function handleMenuItems() {
         const menuItems = document.querySelectorAll('.location-div');
 
+        let currentLocationDisplayed = null;
+
         gsap.set(".location-div", { x: -20 });
 
         menuItems.forEach((location, index) => {
 
-            const h2 = location.querySelector('.menu-item')
+            const h2 = location.querySelector('.menu-item');
             const upvotes = location.querySelector('.location-div-extra');
+            const locationImgSrc = "./assets/" + h2.dataset.imagePath;
 
             location.addEventListener('mouseover', function () {
-                const imgSrc = "./assets/" + h2.dataset.imagePath;
+                const imgSrc = locationImgSrc
                 const img = document.createElement('img');
                 img.classList.add('imageHovered');
                 img.src = imgSrc;
@@ -425,6 +431,76 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 })
 
             });
+
+            const imgElement = locationDetailsWrapper.querySelector('.location-detail-image-container img');
+            const pElement = locationDetailsWrapper.querySelector('.main-location-info p');
+
+            location.addEventListener('click', function() {
+
+                const locationSpecified = h2.textContent;
+
+                if (currentLocationDisplayed !== null) {
+
+                    if (currentLocationDisplayed !== locationSpecified) {
+
+                        gsap.to(locationDetailsWrapper, {
+                            duration: 0.6,
+                            x: -100,
+                            opacity: 0,
+                            ease: 'power2.inOut',
+                            pointerEvents: 'none',
+                            onComplete: () => {
+                                imgElement.src = locationImgSrc;
+                                pElement.textContent = h2.textContent;
+
+                                gsap.to(locationDetailsWrapper, {
+                                    duration: 0.6,
+                                    x: 0,
+                                    opacity: 1,
+                                    ease: 'power2.inOut',
+                                    pointerEvents: 'all'
+                                });
+                            }
+                        });
+
+                        currentLocationDisplayed = locationSpecified;
+
+                    } else {
+
+                        gsap.to(locationDetailsWrapper, {
+                            duration: 0.6,
+                            x: -100,
+                            opacity: 0,
+                            ease: 'power2.inOut',
+                            pointerEvents: 'none',
+                            onComplete: () => {
+                                imgElement.src = "";
+                                pElement.textContent = "";
+                            }
+                        });
+
+                        currentLocationDisplayed = null;
+
+                    }
+                } else {
+
+                    imgElement.src = locationImgSrc;
+                    pElement.textContent = h2.textContent;
+
+                    gsap.to(locationDetailsWrapper, {
+                        duration: 0.6,
+                        x: 0,
+                        opacity: 1,
+                        ease: 'power2.inOut',
+                        pointerEvents: 'all'
+                    });
+
+                    currentLocationDisplayed = locationSpecified;
+
+                }
+
+            });
+
         });
 
         document.addEventListener('mousemove', function(e) {

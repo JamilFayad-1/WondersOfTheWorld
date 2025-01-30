@@ -635,6 +635,9 @@ header {
     height: auto;
     border-radius: 1.2rem;
     overflow: hidden;
+    transform: translateX(-100px);
+    opacity: 0;
+    pointer-events: none;
 }
 
 .location-detail-image-container {
