@@ -311,6 +311,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 ease: 'power2.inOut'
             })
             featuredControlsText.textContent = "Close featured";
+
+            if (menuButton.innerHTML == "CLOSE") {
+                menuButton.click();
+            }
+
         }else {
             gsap.to(featuredOfTheMonth, {
                 duration: 0.8,
@@ -451,6 +456,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     verticalItemList.style.pointerEvents = "all";
                 }
             })
+
+            if(featuredControlsText.textContent === "Close featured"){
+                featuredControls.click();
+            }
+
         } else {
             menuButton.innerHTML = "DISCOVER";
 
