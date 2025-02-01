@@ -545,8 +545,8 @@ header {
 
 .featured-location {
     position: relative;
-    width: 360px;
-    height: 360px;
+    width: clamp(240px, 5vw, 380px);
+    height: clamp(240px, 5vw, 380px);
     display: flex;
     transition: all 0.2s ease-in-out;
 }
