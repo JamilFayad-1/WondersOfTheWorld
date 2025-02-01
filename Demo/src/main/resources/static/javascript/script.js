@@ -1,10 +1,90 @@
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
+    const menuButton = document.querySelector('.menu-element');
+    const brandName = document.querySelector('.logo-name');
+    const accountButton = document.querySelector('.account-element');
+    const openButton = document.getElementById('OpenButton');
+    const backgroundAnimation = document.getElementById('BackAnim');
+    const landingPage = document.querySelector('.landing-page');
+    const verticalItemList = document.querySelector('.vertical-menu-list');
+    const header = document.getElementById('header');
+    const accountPage = document.querySelector('.account-page');
+    const closeAccountButton = document.getElementById('close-account-button');
+    const cursorImage = document.querySelector('.cursor');
+    const imageHovered = document.querySelector('.imageHovered');
+    const openPopup = document.querySelector('.options');
+    const featuredOfTheMonth = document.querySelector('.featured-of-the-month');
+    const featuredControls = document.querySelector('.featured-controls');
+    const featuredControlsText = document.getElementById('featuredControlsText');
+    const monthDisplayed = document.getElementById('monthDisplayed');
+    const featuredLocations = document.querySelectorAll('.featured-location');
+    const featuredLocationInfos = document.querySelectorAll('.featured-location-info');
+    const locationDetailsWrapper = document.querySelector('.location-details-wrapper');
+    const mainLocationInfo = document.querySelector('.main-location-info');
+    const locationDetailImageContainer = document.querySelector('.location-detail-image-container');
+    const form = document.getElementById('createAccountForm');
+    const formData = new FormData(form);
+    const inputs = document.querySelectorAll('.createAccountInput');
+    const firstNameInput = document.getElementById('firstName');
+    const lastNameInput = document.getElementById('lastName');
+    const usernameInput = document.getElementById('username');
+    const inputUsernameContainer = document.getElementById('input-container-username');
+    const emailInput = document.getElementById('email');
+    const inputEmailContainer = document.getElementById('input-container-email');
+    const passwordInput = document.getElementById('password');
+    const inputPasswordContainer = document.getElementById('input-container-password');
+    const inputFirstContainer = document.getElementById('input-container-first-name');
+    const inputLastContainer = document.getElementById('input-container-last-name');
+    const formInputs = document.querySelectorAll('.create-account-form input, .login-account-form input');
+    const firstNameError = document.createElement('p');
+    const lastNameError = document.createElement('p');
+    const usernameError = document.createElement('p');
+    const emailError = document.createElement('p');
+    const passwordError = document.createElement('p');
+
+
+    function resetFormInputs() {
+        firstNameInput.value = '';
+        lastNameInput.value = '';
+        usernameInput.value = '';
+        emailInput.value = '';
+        passwordInput.value = '';
+    }
+
+    function resetFormErrors() {
+        firstNameError.innerText = '';
+        lastNameError.innerText = '';
+        usernameError.innerText = '';
+        emailError.innerText = '';
+        passwordError.innerText= '';
+    }
+
+    openButton.addEventListener('click', function () {
+        openButton.style.opacity = '0';
+
+        resetFormInputs();
+
+        gsap.to(openPopup, {
+            opacity: 1,
+            duration: 0.5,
+            ease: "power3.out",
+            onComplete: () => {
+                openPopup.style.transition = 'opacity 0.6s ease-in-out';
+            }
+        })
+        openPopup.style.pointerEvents = "all";
+    })
+
+    formInputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            input.classList.add('inputNew');
+        });
+    });
+
     document.getElementById('submitBtn').addEventListener('click', function() {
-        const form = document.getElementById('createAccountForm');
-        const formData = new FormData(form);
-        const inputs = document.querySelectorAll('.createAccountInput');
+
+        resetFormErrors();
 
         fetch('/api/members/createAccount', {
             method: 'POST',
@@ -12,9 +92,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         })
             .then(response => response.json())
             .then(data => {
-                // Clear previous error styles
                 inputs.forEach(input => {
-                    input.style.border = '';
+                    input.style.outline = '';
                     input.style.color = '';
                 });
 
@@ -22,78 +101,65 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     inputs.forEach(input => {
                         input.style.outline = '1px solid #A2CA71';
                         input.style.color = '#A2CA71';
+
+                        setTimeout(() => {
+                            registerAnimationTL = gsap.timeline();
+
+                            registerAnimationTL.to(lastNameInput, {y: 25, duration: 0.5, ease: 'power3.InOut'});
+                            registerAnimationTL.to(firstNameInput, {y: 50, duration: 0.5, ease: 'power3.InOut'}, '-=75%');
+                        }, 500)
+
                     });
                 } else {
                     if (data.firstNameError) {
-                        const firstNameInput = document.getElementById('firstName');
-                        const inputContainer = document.getElementById('input-container-first-name');
-                        const firstNameError = document.createElement('p');
-                        firstNameInput.style.outline = '1px solid #a34646';
-                        firstNameInput.style.color = '#a34646';
+                        firstNameInput.classList.remove('inputDefault');
+                        firstNameInput.classList.add('inputError');
                         firstNameError.textContent = data.firstNameError;
-                        inputContainer.appendChild(firstNameError);
+                        inputFirstContainer.appendChild(firstNameError);
 
                     }else {
-                        const firstNameInput = document.getElementById('firstName');
-                        firstNameInput.style.outline = '1px solid #A2CA71';
-                        firstNameInput.style.color = '#A2CA71';
+                        firstNameInput.classList.add('inputValid');
                     }
 
                     if (data.lastNameError) {
-                        const lastNameInput = document.getElementById('lastName');
-                        const inputContainer = document.getElementById('input-container-last-name');
-                        const lastNameError = document.createElement('p');
                         lastNameInput.style.outline = '1px solid #a34646';
                         lastNameInput.style.color = '#a34646';
                         lastNameError.textContent = data.lastNameError;
-                        inputContainer.appendChild(lastNameError);
+                        inputLastContainer.appendChild(lastNameError);
 
                     }else {
-                        const firstNameInput = document.getElementById('lastName');
-                        firstNameInput.style.outline = '1px solid #A2CA71';
-                        firstNameInput.style.color = '#A2CA71';
+                        lastNameInput.style.outline = '1px solid #A2CA71';
+                        lastNameInput.style.color = '#A2CA71';
                     }
 
                     if (data.usernameError) {
-                        const usernameInput = document.getElementById('username');
-                        const inputContainer = document.getElementById('input-container-username');
-                        const usernameError = document.createElement('p');
                         usernameInput.style.outline = '1px solid #a34646';
                         usernameInput.style.color = '#a34646';
                         usernameError.textContent = data.usernameError;
-                        inputContainer.appendChild(usernameError);
+                        inputUsernameContainer.appendChild(usernameError);
                     }else {
-                        const firstNameInput = document.getElementById('username');
-                        firstNameInput.style.outline = '1px solid #A2CA71';
-                        firstNameInput.style.color = '#A2CA71';
+                        usernameInput.style.outline = '1px solid #A2CA71';
+                        usernameInput.style.color = '#A2CA71';
                     }
 
                     if (data.emailError) {
-                        const emailInput = document.getElementById('email');
-                        const inputContainer = document.getElementById('input-container-email');
-                        const emailError = document.createElement('p');
                         emailInput.style.outline = '1px solid #a34646';
                         emailInput.style.color = '#a34646';
                         emailError.textContent = data.emailError;
-                        inputContainer.appendChild(emailError);
+                        inputEmailContainer.appendChild(emailError);
                     }else {
-                        const firstNameInput = document.getElementById('email');
-                        firstNameInput.style.outline = '1px solid #A2CA71';
-                        firstNameInput.style.color = '#A2CA71';
+                        emailInput.style.outline = '1px solid #A2CA71';
+                        emailInput.style.color = '#A2CA71';
                     }
 
                     if (data.passwordError) {
-                        const passwordInput = document.getElementById('password');
-                        const inputContainer = document.getElementById('input-container-password');
-                        const passwordError = document.createElement('p');
                         passwordInput.style.outline = '1px solid #a34646';
                         passwordInput.style.color = '#a34646';
                         passwordError.textContent = data.passwordError;
-                        inputContainer.appendChild(passwordError);
+                        inputPasswordContainer.appendChild(passwordError);
                     }else {
-                        const firstNameInput = document.getElementById('password');
-                        firstNameInput.style.outline = '1px solid #A2CA71';
-                        firstNameInput.style.color = '#A2CA71';
+                        passwordInput.style.outline = '1px solid #A2CA71';
+                        passwordInput.style.color = '#A2CA71';
                     }
                 }
             })
@@ -283,29 +349,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         })
         .catch(error => console.error('Error fetching locations:', error));
 
-    const menuButton = document.querySelector('.menu-element');
-    const brandName = document.querySelector('.logo-name');
-    const accountButton = document.querySelector('.account-element');
-    const openButton = document.getElementById('OpenButton');
-    const backgroundAnimation = document.getElementById('BackAnim');
-    const landingPage = document.querySelector('.landing-page');
-    const verticalItemList = document.querySelector('.vertical-menu-list');
-    const header = document.getElementById('header');
-    const accountPage = document.querySelector('.account-page');
-    const closeAccountButton = document.getElementById('close-account-button');
-    const cursorImage = document.querySelector('.cursor');
-    const imageHovered = document.querySelector('.imageHovered');
-    const openPopup = document.querySelector('.options');
-    const featuredOfTheMonth = document.querySelector('.featured-of-the-month');
-    const featuredControls = document.querySelector('.featured-controls');
-    const featuredControlsText = document.getElementById('featuredControlsText');
-    const monthDisplayed = document.getElementById('monthDisplayed');
-    const featuredLocations = document.querySelectorAll('.featured-location');
-    const featuredLocationInfos = document.querySelectorAll('.featured-location-info');
-    const locationDetailsWrapper = document.querySelector('.location-details-wrapper');
-    const mainLocationInfo = document.querySelector('.main-location-info');
-    const locationDetailImageContainer = document.querySelector('.location-detail-image-container');
-
     featuredControls.addEventListener('click', function() {
         if(featuredControlsText.textContent === "Open featured"){
             gsap.to(featuredOfTheMonth, {
@@ -362,13 +405,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     function handleMenuItems() {
         const menuItems = document.querySelectorAll('.location-div');
+        const locationItemLike = document.querySelectorAll('.location-div-extra');
 
         let currentLocationDisplayed = null;
 
         gsap.set(".location-div", { x: -20 });
 
         menuItems.forEach((location, index) => {
-
             const h2 = location.querySelector('.menu-item');
             const upvotes = location.querySelector('.location-div-extra');
             const locationImgSrc = "./assets/" + h2.dataset.imagePath;
@@ -437,6 +480,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             location.addEventListener('click', function(event) {
                 event.stopPropagation();
+
+                if (locationItemLike[index].contains(event.target)) {
+                    return;
+                }
 
                 const locationSpecified = h2.textContent;
 
@@ -572,20 +619,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             })
         }
-    })
-
-    openButton.addEventListener('click', function () {
-        openButton.style.opacity = '0';
-
-        gsap.to(openPopup, {
-            opacity: 1,
-            duration: 1,
-            ease: "power3.out",
-            onComplete: () => {
-                openPopup.style.transition = 'opacity 0.6s ease-in-out';
-                openPopup.style.pointerEvents = "all";
-            }
-        })
     })
 
     accountButton.addEventListener('click', function () {
