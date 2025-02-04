@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         gsap.to(openPopup, {
             opacity: 1,
-            duration: 0.5,
+            duration: 0.2,
             ease: "power3.out",
             onComplete: () => {
                 openPopup.style.transition = 'opacity 0.6s ease-in-out';
@@ -294,6 +294,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 landingPage.style.pointerEvents = 'none';
                 featuredOfTheMonth.style.opacity = '1';
                 featuredOfTheMonth.style.pointerEvents = 'all';
+                gsap.to(".location-div", {
+                    duration: 0.1,
+                    opacity: 1,
+                    x: 0,
+                    onComplete: () => {
+                        verticalItemList.style.pointerEvents = "all";
+                    }
+                })
             }
         })
 
@@ -358,15 +366,28 @@ document.addEventListener("DOMContentLoaded", (event) => {
             })
             featuredControlsText.textContent = "Close featured";
 
-            if (menuButton.innerHTML == "CLOSE") {
-                menuButton.click();
-            }
+            gsap.to(".location-div", {
+                duration: 0.1,
+                x: -20,
+                opacity: 0,
+                onComplete: () => {
+                    verticalItemList.style.pointerEvents = "none";
+                }
+            })
 
         }else {
             gsap.to(featuredOfTheMonth, {
                 duration: 0.8,
                 y: '70vh',
                 ease: 'power2.inOut'
+            })
+            gsap.to(".location-div", {
+                duration: 0.1,
+                opacity: 1,
+                x: 0,
+                onComplete: () => {
+                    verticalItemList.style.pointerEvents = "all";
+                }
             })
             featuredControlsText.textContent = "Open featured";
         }
@@ -583,49 +604,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
         });
     }
 
-    menuButton.addEventListener("click", function () {
-
-        if (window.innerWidth <= 1250) {
-            verticalItemList.style.backdropFilter = 'blur(10px)';
-        }
-
-        if (menuButton.innerHTML == "DISCOVER") {
-            menuButton.innerHTML = "CLOSE";
-
-            verticalItemList.scrollTop = 0;
-
-            gsap.to(".location-div", {
-                duration: 0.1,
-                opacity: 1,
-                x: 0,
-                onComplete: () => {
-                    verticalItemList.style.pointerEvents = "all";
-                }
-            })
-
-            if(featuredControlsText.textContent === "Close featured"){
-                featuredControls.click();
-            }
-
-        } else {
-            menuButton.innerHTML = "DISCOVER";
-
-            gsap.to(".location-div", {
-                duration: 0.1,
-                x: -20,
-                opacity: 0,
-                onComplete: () => {
-                    verticalItemList.style.pointerEvents = "none";
-                }
-            })
-        }
-    })
-
     accountButton.addEventListener('click', function () {
 
-        if (menuButton.innerHTML == "CLOSE") {
-            menuButton.click();
+        if(featuredControlsText.textContent === "Close featured"){
+            featuredControls.click();
         }
+
+        featuredControls.style.opacity = '0';
+        featuredControls.style.pointerEvents = 'none';
+
+        gsap.to(".location-div", {
+            duration: 0.1,
+            x: -20,
+            opacity: 0,
+            onComplete: () => {
+                verticalItemList.style.pointerEvents = "none";
+            }
+        })
 
         backgroundAnimation.style.filter = 'blur(15px)';
         menuButton.style.opacity = '0';
@@ -672,6 +667,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 header.style.pointerEvents = 'all';
                 accountPage.style.opacity = '0';
                 accountPage.style.pointerEvents = 'none';
+                featuredControls.style.opacity = '1';
+                featuredControls.style.pointerEvents = 'all';
+                gsap.to(".location-div", {
+                    duration: 0.1,
+                    opacity: 1,
+                    x: 0,
+                    onComplete: () => {
+                        verticalItemList.style.pointerEvents = "all";
+                    }
+                })
             }
         })
     })
